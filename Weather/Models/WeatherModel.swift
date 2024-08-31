@@ -7,75 +7,100 @@
 
 import SwiftUI
 
-struct Weather: Identifiable {
+struct City: Identifiable {
     var id = UUID()
-    var day: String
-    var image: String
-    var temperature: Int
+    var name: String
+    var forecasts: [Forecast]
     
-    init(id: UUID = UUID(), day: String, image: String, temperature: Int) {
+    init(id: UUID = UUID(), name: String, forecasts: [Forecast]) {
         self.id = id
-        self.day = day
-        self.image = image
-        self.temperature = temperature
+        self.name = name
+        // need below mapping of City to Forecast array
+        self.forecasts = forecasts.map { Forecast(date: $0.date, image: $0.image, temperature: $0.temperature)}
     }
 }
 
-extension Weather {
-    static let MON: Weather =
-        Weather(day: "MON", 
-                image: "cloud.sun.fill",
-                temperature: 30
-                )
+extension City {
+    struct Forecast: Identifiable {
+        let id: UUID
+        var date: String
+        var image: String
+        var temperature: Int
+        
+        init(id: UUID = UUID(), date: String, image: String, temperature: Int) {
+            self.id = id
+            self.date = date
+            self.image = image
+            self.temperature = temperature
+        }
+    }
 }
 
-extension Weather {
-    static let TUE: Weather =
-        Weather(day: "TUE", 
-                image: "cloud.sun.fill",
-                temperature: 31
-                )
+extension City {
+    static let BKK: City =
+    City(name: "Bangkok, Thailand",
+         forecasts: [
+            Forecast(date: "2024-08-01", image: "cloud.sun.fill", temperature: 30 ),
+            Forecast(date: "2024-08-02", image: "cloud.sun.fill", temperature: 31 ),
+            Forecast(date: "2024-08-03", image: "cloud.sun.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-04", image: "cloud.sun.rain.fill", temperature: 33 ),
+            Forecast(date: "2024-08-05", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-06", image: "cloud.bolt.rain.fill", temperature: 35 ),
+            Forecast(date: "2024-08-07", image: "cloud.sun.rain.fill", temperature: 34 ),
+            Forecast(date: "2024-08-08", image: "cloud.sun.fill", temperature: 33 ),
+            Forecast(date: "2024-08-09", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-10", image: "cloud.sun.rain.fill", temperature: 31 ),
+            Forecast(date: "2024-08-11", image: "cloud.bolt.rain.fill", temperature: 31 ),
+            Forecast(date: "2024-08-12", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-13", image: "cloud.sun.rain.fill", temperature: 33 ),
+            Forecast(date: "2024-08-14", image: "cloud.sun.fill", temperature: 34 )
+         ])
 }
 
-extension Weather {
-    static let WED: Weather =
-        Weather(day: "WED", 
-                image: "cloud.sun.rain.fill",
-                temperature: 32
-                )
+extension City {
+    static let LND: City =
+    City(name: "London, England",
+         forecasts: [
+            Forecast(date: "2024-08-01", image: "cloud.sun.fill", temperature: 30 ),
+            Forecast(date: "2024-08-02", image: "cloud.sun.fill", temperature: 31 ),
+            Forecast(date: "2024-08-03", image: "cloud.sun.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-04", image: "cloud.sun.rain.fill", temperature: 33 ),
+            Forecast(date: "2024-08-05", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-06", image: "cloud.bolt.rain.fill", temperature: 35 ),
+            Forecast(date: "2024-08-07", image: "cloud.sun.rain.fill", temperature: 34 ),
+            Forecast(date: "2024-08-08", image: "cloud.sun.fill", temperature: 33 ),
+            Forecast(date: "2024-08-09", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-10", image: "cloud.sun.rain.fill", temperature: 31 ),
+            Forecast(date: "2024-08-11", image: "cloud.bolt.rain.fill", temperature: 31 ),
+            Forecast(date: "2024-08-12", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-13", image: "cloud.sun.rain.fill", temperature: 33 ),
+            Forecast(date: "2024-08-14", image: "cloud.sun.fill", temperature: 34 )
+         ])
 }
 
-extension Weather {
-    static let THU: Weather =
-        Weather(day: "THU", 
-                image: "cloud.sun.rain.fill",
-                temperature: 33
-                )
+extension City {
+    static let HNL: City =
+    City(name: "Honolulu, Hawaii",
+         forecasts: [
+            Forecast(date: "2024-08-01", image: "cloud.sun.fill", temperature: 30 ),
+            Forecast(date: "2024-08-02", image: "cloud.sun.fill", temperature: 31 ),
+            Forecast(date: "2024-08-03", image: "cloud.sun.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-04", image: "cloud.sun.rain.fill", temperature: 33 ),
+            Forecast(date: "2024-08-05", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-06", image: "cloud.bolt.rain.fill", temperature: 35 ),
+            Forecast(date: "2024-08-07", image: "cloud.sun.rain.fill", temperature: 34 ),
+            Forecast(date: "2024-08-08", image: "cloud.sun.fill", temperature: 33 ),
+            Forecast(date: "2024-08-09", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-10", image: "cloud.sun.rain.fill", temperature: 31 ),
+            Forecast(date: "2024-08-11", image: "cloud.bolt.rain.fill", temperature: 31 ),
+            Forecast(date: "2024-08-12", image: "cloud.bolt.rain.fill", temperature: 32 ),
+            Forecast(date: "2024-08-13", image: "cloud.sun.rain.fill", temperature: 33 ),
+            Forecast(date: "2024-08-14", image: "cloud.sun.fill", temperature: 34 ),
+         ])
 }
 
-extension Weather {
-    static let FRI: Weather =
-        Weather(day: "FRI", 
-                image: "cloud.bolt.rain.fill",
-                temperature: 32
-                )
-}
-
-extension Weather {
-    static let SAT: Weather =
-        Weather(day: "SAT", 
-                image: "sun.max.fill",
-                temperature: 35
-                )
-}
-
-extension Weather {
-    static let forecast: [Weather] = [
-        MON,
-        TUE,
-        WED,
-        THU,
-        FRI,
-        SAT,
+extension City {
+    static let cities: [City] = [
+        BKK, LND, HNL
     ]
 }

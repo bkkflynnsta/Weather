@@ -10,19 +10,23 @@ import SwiftUI
 struct WeatherView: View {
 
     @State private var isDark = false
+    @State private var cities = City.BKK
+    @State private var forecasts = City.BKK.forecasts
 
     var body: some View {
         ZStack {
             BackgroundView(isDark: $isDark)
             VStack {
-                LocationView(cityName: "Bangkok, Thailand")
+                LocationView(cityName: cities.name)
                 TodaysWeatherView(imageName: isDark ? "cloud.moon.fill" : "cloud.sun.fill", temperature: 30)
-
-                HStack(spacing: 20) {
-                    ForEach(Weather.forecast) { item in
-                        ForecastView(dayOfWeek: item.day, imageName: item.image, temperature: item.temperature)
+                ScrollView(.horizontal) {
+                    HStack(spacing: 20) {
+                        ForEach(forecasts) { item in
+                            ForecastView(date: item.date, imageName: item.image, temperature: item.temperature)
+                        }
                     }
                 }
+                .padding()
 
                 Spacer()
 
@@ -89,14 +93,17 @@ struct TodaysWeatherView: View {
 
 struct ForecastView: View {
 
-    var dayOfWeek: String
+    var date: String
     var imageName: String
     var temperature: Int
 
     var body: some View {
         VStack {
-            Text(dayOfWeek)
+            Text(getThreeLetterDay(date: setDate(dateString: date)))
                 .font(.system(size: 16))
+                .foregroundColor(.white)
+            Text(getShortMonthDay(date: setDate(dateString: date)))
+                .font(.system(size: 10))
                 .foregroundColor(.white)
             Image(systemName: imageName)
                 .renderingMode(.original)
@@ -109,3 +116,22 @@ struct ForecastView: View {
         }
     }
 }
+
+func setDate(dateString: String) -> Date {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    return formatter.date(from: dateString)!
+}
+
+func getThreeLetterDay(date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "EEE"
+    return formatter.string(from: date).uppercased()
+}
+
+func getShortMonthDay(date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd MMM"
+    return formatter.string(from: date).uppercased()
+}
+
