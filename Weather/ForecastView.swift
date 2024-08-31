@@ -14,111 +14,44 @@ struct WeatherView: View {
     
     var body: some View {
         TabView {
-            ZStack {
-                BackgroundView(isDark: $isDark)
-                VStack {
-                    LocationView(cityName: cities.BKK.name)
-                    TodaysWeatherView(imageName: isDark ? "cloud.sun.fill" : cities.BKK.forecasts.first!.image,
-                                      temperature: cities.BKK.forecasts.first!.temperature)
-                    
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 20) {
-                            ForEach(cities.BKK.forecasts) { item in
-                                // find first element (Today)
-                                if let index = cities.BKK.forecasts.firstIndex(where: {$0.id == item.id}) {
-                                    // skip if today
-                                    if index != 0 {
-                                        ForecastView(date: item.date, imageName: item.image, temperature: item.temperature)
+            ForEach(City.cities) { city in
+                ZStack {
+                    BackgroundView(isDark: $isDark)
+                    VStack {
+                        LocationView(cityName: city.name)
+                        TodaysWeatherView(imageName: isDark ? "cloud.sun.fill" : city.forecasts.first!.image,
+                                          temperature: city.forecasts.first!.temperature)
+                        
+                        ScrollView(.horizontal) {
+                            HStack(spacing: 20) {
+                                ForEach(city.forecasts) { item in
+                                    // find first element (Today)
+                                    if let index = city.forecasts.firstIndex(where: {$0.id == item.id}) {
+                                        // skip if today
+                                        if index != 0 {
+                                            ForecastView(date: item.date, imageName: item.image, temperature: item.temperature)
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    .padding()
-                    
-                    Spacer()
-                    
-                    Button {
-                        isDark.toggle()
-                    } label: {
-                        WeatherButton(buttonTitle: "Toggle Light/Dark Mode", fgColor: .blue, bgColor: .white)
-                    }
-                    
-                    Spacer()
-                }
-            }
-            
-            ZStack {
-                BackgroundView(isDark: $isDark)
-                VStack {
-                    LocationView(cityName: cities.LND.name)
-                    TodaysWeatherView(imageName: isDark ? "cloud.sun.fill" : cities.LND.forecasts.first!.image,
-                                      temperature: cities.LND.forecasts.first!.temperature)
-                    
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 20) {
-                            ForEach(cities.LND.forecasts) { item in
-                                // find first element (Today)
-                                if let index = cities.LND.forecasts.firstIndex(where: {$0.id == item.id}) {
-                                    // skip if today
-                                    if index != 0 {
-                                        ForecastView(date: item.date, imageName: item.image, temperature: item.temperature)
-                                    }
-                                }
-                            }
+                        .padding()
+                        
+                        Spacer()
+                        
+                        Button {
+                            isDark.toggle()
+                        } label: {
+                            WeatherButton(buttonTitle: "Toggle Light/Dark Mode", fgColor: .blue, bgColor: .white)
                         }
+                        
+                        Spacer()
                     }
-                    .padding()
-                    
-                    Spacer()
-                    
-                    Button {
-                        isDark.toggle()
-                    } label: {
-                        WeatherButton(buttonTitle: "Toggle Light/Dark Mode", fgColor: .blue, bgColor: .white)
-                    }
-                    
-                    Spacer()
-                }
-            }
-            
-            ZStack {
-                BackgroundView(isDark: $isDark)
-                VStack {
-                    LocationView(cityName: cities.HNL.name)
-                    TodaysWeatherView(imageName: isDark ? "cloud.sun.fill" : cities.HNL.forecasts.first!.image,
-                                      temperature: cities.HNL.forecasts.first!.temperature)
-                    
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 20) {
-                            ForEach(cities.HNL.forecasts) { item in
-                                // find first element (Today)
-                                if let index = cities.HNL.forecasts.firstIndex(where: {$0.id == item.id}) {
-                                    // skip if today
-                                    if index != 0 {
-                                        ForecastView(date: item.date, imageName: item.image, temperature: item.temperature)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .padding()
-                    
-                    Spacer()
-                    
-                    Button {
-                        isDark.toggle()
-                    } label: {
-                        WeatherButton(buttonTitle: "Toggle Light/Dark Mode", fgColor: .blue, bgColor: .white)
-                    }
-                    
-                    Spacer()
                 }
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
         .ignoresSafeArea()
-        
     }
 }
 
@@ -214,4 +147,3 @@ func getShortMonthDay(date: Date) -> String {
     formatter.dateFormat = "dd MMM"
     return formatter.string(from: date).uppercased()
 }
-
