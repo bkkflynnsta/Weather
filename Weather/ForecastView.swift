@@ -19,7 +19,7 @@ struct WeatherView: View {
                     BackgroundView(isDark: $isDark)
                     VStack {
                         LocationView(cityName: city.name)
-                        TodaysWeatherView(imageName: isDark ? "cloud.sun.fill" : city.forecasts.first!.image,
+                        TodaysWeatherView(imageName: isDark ? "cloud.moon.fill" : city.forecasts.first!.image,
                                           temperature: city.forecasts.first!.temperature)
                         
                         ScrollView(.horizontal) {
