@@ -10,10 +10,10 @@ import SwiftUI
 struct WeatherView: View {
     
     @State private var isDark = false
-    @State private var cities = City.self
     
     var body: some View {
         TabView {
+            // iterate over cities
             ForEach(City.cities) { city in
                 ZStack {
                     BackgroundView(isDark: $isDark)
@@ -24,6 +24,7 @@ struct WeatherView: View {
                         
                         ScrollView(.horizontal) {
                             HStack(spacing: 20) {
+                                // iterate over city forecasts, skipping the first one
                                 ForEach(city.forecasts) { item in
                                     // find first element (Today)
                                     if let index = city.forecasts.firstIndex(where: {$0.id == item.id}) {
@@ -128,22 +129,4 @@ struct ForecastView: View {
                 .foregroundColor(.white)
         }
     }
-}
-
-func setDate(dateString: String) -> Date {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd"
-    return formatter.date(from: dateString)!
-}
-
-func getThreeLetterDay(date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "EEE"
-    return formatter.string(from: date).uppercased()
-}
-
-func getShortMonthDay(date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "dd MMM"
-    return formatter.string(from: date).uppercased()
 }
