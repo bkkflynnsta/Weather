@@ -11,7 +11,7 @@ struct City: Identifiable {
     var id = UUID()
     var name: String
     var forecasts: [Forecast]
-    
+
     init(id: UUID = UUID(), name: String, forecasts: [Forecast]) {
         self.id = id
         self.name = name
@@ -26,7 +26,7 @@ extension City {
         var date: String
         var image: String
         var temperature: Int
-        
+
         init(id: UUID = UUID(), date: String, image: String, temperature: Int) {
             self.id = id
             self.date = date

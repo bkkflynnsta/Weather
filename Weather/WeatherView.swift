@@ -11,18 +11,23 @@ struct WeatherView: View {
 
     @State private var isDark = false
     @State private var cities = City.BKK
-    @State private var forecasts = City.BKK.forecasts
 
     var body: some View {
         ZStack {
             BackgroundView(isDark: $isDark)
             VStack {
                 LocationView(cityName: cities.name)
-                TodaysWeatherView(imageName: isDark ? "cloud.moon.fill" : "cloud.sun.fill", temperature: 30)
+                TodaysWeatherView(imageName: isDark ? "cloud.sun.fill" : cities.forecasts.first!.image, temperature: cities.forecasts.first!.temperature)
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
-                        ForEach(forecasts) { item in
-                            ForecastView(date: item.date, imageName: item.image, temperature: item.temperature)
+                        ForEach(cities.forecasts) { item in
+                            // check if first element (Today)
+                            if let index = cities.forecasts.firstIndex(where: {$0.id == item.id}) {
+                                // skip if today
+                                if index != 0 {
+                                    ForecastView(date: item.date, imageName: item.image, temperature: item.temperature)
+                                }
+                            }
                         }
                     }
                 }
