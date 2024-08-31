@@ -56,10 +56,6 @@ struct WeatherView: View {
     }
 }
 
-#Preview {
-    WeatherView()
-}
-
 struct BackgroundView: View {
     
     @Binding var isDark: Bool
@@ -129,4 +125,8 @@ struct ForecastView: View {
                 .foregroundColor(.white)
         }
     }
+}
+
+#Preview {
+    WeatherView()
 }

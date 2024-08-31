@@ -57,9 +57,9 @@
 		1FBB375C2C81758400B007FD /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				1FBB375D2C81758400B007FD /* WeatherApp.swift */,
 				1FBB376D2C81996E00B007FD /* Models */,
 				1FBB376E2C81997400B007FD /* Views */,
-				1FBB375F2C81758400B007FD /* ForecastView.swift */,
 				1FBB37742C82C63D00B007FD /* Helpers */,
 				1FBB37612C81758500B007FD /* Assets.xcassets */,
 				1FBB37632C81758500B007FD /* Preview Content */,
@@ -86,8 +86,8 @@
 		1FBB376E2C81997400B007FD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1FBB375F2C81758400B007FD /* ForecastView.swift */,
 				1FBB376B2C818DAE00B007FD /* WeatherButton.swift */,
-				1FBB375D2C81758400B007FD /* WeatherApp.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
